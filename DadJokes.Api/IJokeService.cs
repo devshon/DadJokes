@@ -4,7 +4,7 @@ namespace DadJokes.Api
 {
     public interface IJokeService
     {
-        string GetRandom();
-        IList<string> SearchTerm(string term);
+        string GetRandomJoke();
+        IList<string> SearchJokeTerm(string term);
     }
 }

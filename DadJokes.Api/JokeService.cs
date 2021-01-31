@@ -8,12 +8,12 @@ namespace DadJokes.Api
 {
     public class JokeService : IJokeService
     {
-        public string GetRandom()
+        public string GetRandomJoke()
         {
             throw new NotImplementedException();
         }
 
-        public IList<string> SearchTerm(string term)
+        public IList<string> SearchJokeTerm(string term)
         {
             throw new NotImplementedException();
         }
