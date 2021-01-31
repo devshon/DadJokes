@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DadJokes.WebApp", "DadJokes.WebApp\DadJokes.WebApp.csproj", "{1655995F-5ECE-4E19-99D2-4DBC6D3F5065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DadJokes.WebApp", "DadJokes.WebApp\DadJokes.WebApp.csproj", "{1655995F-5ECE-4E19-99D2-4DBC6D3F5065}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DadJokes.ConsoleApp", "DadJokes.ConsoleApp\DadJokes.ConsoleApp.csproj", "{F457DC63-98BC-4A96-A449-2302748BF80A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DadJokes.Api", "DadJokes.Api\DadJokes.Api.csproj", "{DFA42402-7374-48E1-AE0A-463A4483D339}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1655995F-5ECE-4E19-99D2-4DBC6D3F5065}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1655995F-5ECE-4E19-99D2-4DBC6D3F5065}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1655995F-5ECE-4E19-99D2-4DBC6D3F5065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F457DC63-98BC-4A96-A449-2302748BF80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F457DC63-98BC-4A96-A449-2302748BF80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F457DC63-98BC-4A96-A449-2302748BF80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F457DC63-98BC-4A96-A449-2302748BF80A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA42402-7374-48E1-AE0A-463A4483D339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA42402-7374-48E1-AE0A-463A4483D339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA42402-7374-48E1-AE0A-463A4483D339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA42402-7374-48E1-AE0A-463A4483D339}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
