@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using DadJokes.Api.Entities;
 
 namespace DadJokes.Api
 {
     public interface IJokeService
     {
-        string GetRandomJoke();
-        IEnumerable<string> SearchJokeTerm(string term);
+        IEnumerable<JokeResult> GetBySearchTerm(string searchTerm);
+        JokeResult GetRandomJoke();
     }
 }
