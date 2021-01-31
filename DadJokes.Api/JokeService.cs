@@ -13,7 +13,7 @@ namespace DadJokes.Api
             throw new NotImplementedException();
         }
 
-        public IList<string> SearchJokeTerm(string term)
+        IEnumerable<string> IJokeService.SearchJokeTerm(string term)
         {
             throw new NotImplementedException();
         }

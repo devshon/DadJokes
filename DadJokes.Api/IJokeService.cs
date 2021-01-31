@@ -5,6 +5,6 @@ namespace DadJokes.Api
     public interface IJokeService
     {
         string GetRandomJoke();
-        IList<string> SearchJokeTerm(string term);
+        IEnumerable<string> SearchJokeTerm(string term);
     }
 }
