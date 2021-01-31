@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http;
 using DadJokes.Api;
 
 namespace DadJokes.ConsoleApp
@@ -13,10 +11,9 @@ namespace DadJokes.ConsoleApp
         {
             _jokeService = new DadJokeService(new HttpClient());
 
-            string randomJoke = _jokeService.GetRandomJoke();
+            var randomJoke = _jokeService.GetRandomJoke();
 
-            string searchTerm = "";
-            var searchResults = _jokeService.SearchJokeTerm(searchTerm);
+            var searchResults = _jokeService.GetBySearchTerm("dog");
         }
     }
 }
