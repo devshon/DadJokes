@@ -20,11 +20,5 @@ namespace DadJokes.Utilities
 
             return groups;
         }
-
-        // TODO: Need to move or rename class
-        public static int NumberOfWords(this string input)
-        {
-            return input.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
-        }
     }
 }
