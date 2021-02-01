@@ -10,21 +10,24 @@ namespace DadJokes.Api
 {
     public class DadJokeService : IJokeService
     {
-        private readonly string _acceptMediaType = "application/json";
         private readonly string _baseAddress = "https://icanhazdadjoke.com/";
         private readonly string _getRandomJokeEndpoint = string.Empty;
         private readonly string _getBySearchTermEndpoint = "/search";
         private readonly int _getBySearchTermResultsLimit = 30;
+        private readonly string _headerAcceptMediaType = "application/json";
+        private readonly string _headerUserAgentProductName = "ShonsDadJokeService";
+        private readonly string _headerUserAgentProductVersion = "1.0";
 
         private HttpClient _httpClient;
 
         public DadJokeService()
         {
-            // TODO: Should this be hiding HttpClient?
+            // TODO: Switch to HttpClientFactory
             _httpClient = new HttpClient();
 
             _httpClient.BaseAddress = new Uri(_baseAddress);
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_acceptMediaType));
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_headerAcceptMediaType));
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(_headerUserAgentProductName, _headerUserAgentProductVersion));
         }
 
         public async Task<IEnumerable<JokeResult>> GetBySearchTerm(string searchTerm)
