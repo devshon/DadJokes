@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DadJokes.Api.Entities;
 
 namespace DadJokes.Api
 {
     public interface IJokeService
     {
-        IEnumerable<JokeResult> GetBySearchTerm(string searchTerm);
-        JokeResult GetRandomJoke();
+        Task<IEnumerable<JokeResult>> GetBySearchTerm(string searchTerm);
+        Task<JokeResult> GetRandomJoke();
     }
 }
