@@ -22,7 +22,7 @@ namespace DadJokes.ConsoleApp
                 searchResult.Joke = searchResult.Joke.EmphasizeWithUppercase("dog");
             }
 
-            var groupedJokes = Grouper.GroupByWordLength(searchResults.Select(x => x.Joke));
+            var groupedJokes = searchResults.Select(x => x.Joke).ToGroupsByWordLength(20, 10);
         }
     }
 }
