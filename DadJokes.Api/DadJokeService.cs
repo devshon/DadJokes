@@ -26,10 +26,10 @@ namespace DadJokes.Api
         /// <summary>
         /// Creates a new instance of DadJokeService.
         /// </summary>
-        public DadJokeService()
+        /// <param name="httpClient">The client used to make calls to the Dad Joke API.</param>
+        public DadJokeService(HttpClient httpClient)
         {
-            // TODO: Switch to HttpClientFactory
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
 
             _httpClient.BaseAddress = new Uri(_baseAddress);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_headerAcceptMediaType));

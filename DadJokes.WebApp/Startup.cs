@@ -20,6 +20,7 @@ namespace DadJokes.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient();
             services.AddTransient<IJokeService, DadJokeService>();
         }
 
