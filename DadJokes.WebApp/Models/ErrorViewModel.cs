@@ -1,6 +1,6 @@
 using System;
 
-namespace DadJokes.Models
+namespace DadJokes.WebApp.Models
 {
     public class ErrorViewModel
     {

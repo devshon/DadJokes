@@ -1,6 +1,8 @@
-﻿@{
+﻿@model DadJokes.WebApp.Models.Home.RandomViewModel
+
+@{
     ViewData["Title"] = "Random Dad Joke";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<p>@Model.RandomeJoke</p>

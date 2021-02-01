@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using DadJokes.Models;
+﻿using System.Diagnostics;
+using DadJokes.Api;
+using DadJokes.WebApp.Models;
+using DadJokes.WebApp.Models.Home;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace DadJokes.Controllers
+namespace DadJokes.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IJokeService _jokeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IJokeService jokeService)
         {
-            _logger = logger;
+            _jokeService = jokeService;
         }
 
         public IActionResult Index()
@@ -25,7 +22,10 @@ namespace DadJokes.Controllers
 
         public IActionResult Random()
         {
-            return View();
+            var viewModel = new RandomViewModel();
+            viewModel.RandomJoke = _jokeService.GetRandomJoke().Joke;
+
+            return View(viewModel);
         }
 
         public IActionResult Search()

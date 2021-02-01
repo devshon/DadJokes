@@ -15,9 +15,10 @@ namespace DadJokes.Api
 
         private HttpClient _httpClient;
 
-        public DadJokeService(HttpClient httpClient)
+        public DadJokeService()
         {
-            _httpClient = httpClient;
+            // TODO: Should this be hiding HttpClient?
+            _httpClient = new HttpClient();
 
             // TODO: should these be passed in
             _httpClient.BaseAddress = new Uri("https://icanhazdadjoke.com/");
