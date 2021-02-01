@@ -42,10 +42,7 @@ namespace DadJokes.WebApp.Controllers
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 viewModel.SearchTerm = searchTerm;
-                var jokeSearchResults = await _jokeService.GetBySearchTerm(searchTerm);
-                viewModel.GroupedJokes = jokeSearchResults
-                    .Select(x => x.Joke.EmphasizeWithUppercase(searchTerm))
-                    .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
+                var jokeSearchResponse = await _jokeService.GetBySearchTerm(searchTerm);
             }
 
             return View(viewModel);

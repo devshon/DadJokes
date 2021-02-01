@@ -14,7 +14,7 @@ namespace DadJokes.Api
         /// </summary>
         /// <param name="searchTerm">The term to search for jokes with.</param>
         /// <returns>Collection of jokes that contain the search term provided.</returns>
-        Task<IEnumerable<JokeResponse>> GetBySearchTerm(string searchTerm);
+        Task<JokeSearchResponse> GetBySearchTerm(string searchTerm);
 
         /// <summary>
         /// Gets a random joke.

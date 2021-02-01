@@ -42,7 +42,7 @@ namespace DadJokes.Api
         /// <param name="searchTerm">The term to search for jokes with.</param>
         /// <returns>Collection of jokes that contain the search term provided.</returns>
         /// <remarks>Results are limited to a maximum of 30.</remarks>
-        public async Task<IEnumerable<JokeResponse>> GetBySearchTerm(string searchTerm)
+        public async Task<JokeSearchResponse> GetBySearchTerm(string searchTerm)
         {
             var responseMessage = await _httpClient.GetAsync(_getBySearchTermEndpoint + $"?term=\"{searchTerm}\"&limit={_getBySearchTermResultsLimit}");
             
@@ -52,7 +52,9 @@ namespace DadJokes.Api
 
             var jokeSearchResults = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
-            return jokeSearchResults.Results;
+            // TODO: emphasize
+            // TODO: group?
+            return jokeSearchResults;
         }
 
         /// <summary>
