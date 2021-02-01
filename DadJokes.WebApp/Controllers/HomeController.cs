@@ -10,6 +10,9 @@ namespace DadJokes.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly int _jokeGroupingLongLowerLimit = 20;
+        private readonly int _jokeGroupingMediumLowerLimit = 10;
+        private readonly int _jokeGroupingShortLowerLimit = 0;
         private readonly IJokeService _jokeService;
 
         public HomeController(IJokeService jokeService)
@@ -38,7 +41,9 @@ namespace DadJokes.WebApp.Controllers
             {
                 viewModel.SearchTerm = searchTerm;
                 var jokeSearchResults = _jokeService.GetBySearchTerm(searchTerm);
-                viewModel.GroupedJokes = jokeSearchResults.Select(x => x.Joke).ToGroupsByWordLength(20, 10);
+                viewModel.GroupedJokes = jokeSearchResults
+                    .Select(x => x.Joke)
+                    .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
             }
 
             return View(viewModel);

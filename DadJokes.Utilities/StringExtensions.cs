@@ -44,7 +44,7 @@ namespace DadJokes.Utilities
         /// <summary>
         /// Groups collection of strings into three categories based on word length: Short, Medium and Long.
         /// </summary>
-        /// <param name="inputStrings">Collection of strings.</param>
+        /// <param name="inputStrings">Collection of strings to group.</param>
         /// <param name="longLowerLimit">The lower word length limit for the long group.</param>
         /// <param name="mediumLowerLimit">The lower word length limit for the medium group.</param>
         /// <param name="shortLowerLimit">The lower word length limit for the short group.</param>
