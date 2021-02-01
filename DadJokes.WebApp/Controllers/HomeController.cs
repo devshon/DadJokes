@@ -44,8 +44,7 @@ namespace DadJokes.WebApp.Controllers
                 viewModel.SearchTerm = searchTerm;
                 var jokeSearchResults = await _jokeService.GetBySearchTerm(searchTerm);
                 viewModel.GroupedJokes = jokeSearchResults
-                    .Select(x => x.Joke)
-                    // TODO: Emphasize search term
+                    .Select(x => x.Joke.EmphasizeWithUppercase(searchTerm))
                     .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
             }
 
