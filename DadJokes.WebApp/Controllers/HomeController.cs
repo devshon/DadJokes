@@ -23,7 +23,12 @@ namespace DadJokes.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Random()
+        {
+            return View();
+        }
+
+        public IActionResult Search()
         {
             return View();
         }
