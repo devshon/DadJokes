@@ -1,6 +1,27 @@
-﻿@{
+﻿@model DadJokes.WebApp.Models.Home.SearchViewModel
+@{
     ViewData["Title"] = "Search Dad Jokes";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<form asp-controller="Home" asp-action="Search">
+    <div class="input-group">
+        <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control"/>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+    </div>
+</form>
+
+<div class="mt-4">
+    @if (Model.GroupedJokes != null)
+    {
+        foreach (var jokeGroup in Model.GroupedJokes)
+        {
+            <ul class="list-group mt-4">
+                @foreach (var joke in jokeGroup)
+                {
+                    <li class="list-group-item">@joke</li>
+                }
+            </ul>
+        }
+    }
+</div>

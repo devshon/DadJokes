@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using DadJokes.Api;
+using DadJokes.Utilities;
 using DadJokes.WebApp.Models;
 using DadJokes.WebApp.Models.Home;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +30,18 @@ namespace DadJokes.WebApp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Search()
+        public IActionResult Search(string searchTerm)
         {
-            return View();
+            var viewModel = new SearchViewModel();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                viewModel.SearchTerm = searchTerm;
+                var jokeSearchResults = _jokeService.GetBySearchTerm(searchTerm);
+                viewModel.GroupedJokes = jokeSearchResults.Select(x => x.Joke).ToGroupsByWordLength(20, 10);
+            }
+
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
