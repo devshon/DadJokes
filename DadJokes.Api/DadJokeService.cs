@@ -42,7 +42,7 @@ namespace DadJokes.Api
         /// <param name="searchTerm">The term to search for jokes with.</param>
         /// <returns>Collection of jokes that contain the search term provided.</returns>
         /// <remarks>Results are limited to a maximum of 30.</remarks>
-        public async Task<IEnumerable<JokeResult>> GetBySearchTerm(string searchTerm)
+        public async Task<IEnumerable<JokeResponse>> GetBySearchTerm(string searchTerm)
         {
             var responseMessage = await _httpClient.GetAsync(_getBySearchTermEndpoint + $"?term=\"{searchTerm}\"&limit={_getBySearchTermResultsLimit}");
             
@@ -50,7 +50,7 @@ namespace DadJokes.Api
 
             string content = await responseMessage.Content.ReadAsStringAsync();
 
-            var jokeSearchResults = JsonConvert.DeserializeObject<JokeSearchResult>(content);
+            var jokeSearchResults = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
             return jokeSearchResults.Results;
         }
@@ -59,7 +59,7 @@ namespace DadJokes.Api
         /// Gets a random joke from the API.
         /// </summary>
         /// <returns>JokeResult representing a random joke.</returns>
-        public async Task<JokeResult> GetRandomJoke()
+        public async Task<JokeResponse> GetRandomJoke()
         {
             var responseMessage = await _httpClient.GetAsync(_getRandomJokeEndpoint);
             
@@ -67,7 +67,7 @@ namespace DadJokes.Api
 
             string content = await responseMessage.Content.ReadAsStringAsync();
 
-            var jokeResult = JsonConvert.DeserializeObject<JokeResult>(content);
+            var jokeResult = JsonConvert.DeserializeObject<JokeResponse>(content);
 
             return jokeResult;
         }
