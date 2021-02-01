@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DadJokes.Api.Entities;
+using DadJokes.Utilities;
 using Newtonsoft.Json;
 
 namespace DadJokes.Api
@@ -44,17 +45,20 @@ namespace DadJokes.Api
         /// <remarks>Results are limited to a maximum of 30.</remarks>
         public async Task<JokeSearchResponse> GetBySearchTerm(string searchTerm)
         {
-            var responseMessage = await _httpClient.GetAsync(_getBySearchTermEndpoint + $"?term=\"{searchTerm}\"&limit={_getBySearchTermResultsLimit}");
+            var responseMessage = await _httpClient.GetAsync(_getBySearchTermEndpoint + $"?term={searchTerm}&limit={_getBySearchTermResultsLimit}");
             
             responseMessage.EnsureSuccessStatusCode();
 
             string content = await responseMessage.Content.ReadAsStringAsync();
 
-            var jokeSearchResults = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
+            var jokeSearchReponse = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
-            // TODO: emphasize
+            foreach (var jokeResult in jokeSearchReponse.Results)
+            {
+                jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(jokeSearchReponse.SearchTerm);
+            }
             // TODO: group?
-            return jokeSearchResults;
+            return jokeSearchReponse;
         }
 
         /// <summary>
