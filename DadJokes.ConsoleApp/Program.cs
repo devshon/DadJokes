@@ -17,12 +17,12 @@ namespace DadJokes.ConsoleApp
 
             var searchResults = _jokeService.GetBySearchTerm("dog");
 
-            foreach (var searchResult in searchResults)
-            {
-                searchResult.Joke = searchResult.Joke.EmphasizeWithUppercase("dog");
-            }
+            //foreach (var searchResult in searchResults)
+            //{
+            //    searchResult.Joke = searchResult.Joke.EmphasizeWithUppercase("dog");
+            //}
 
-            var groupedJokes = searchResults.Select(x => x.Joke).ToGroupsByWordLength(20, 10);
+            //var groupedJokes = searchResults.Select(x => x.Joke).ToGroupsByWordLength(20, 10);
         }
     }
 }

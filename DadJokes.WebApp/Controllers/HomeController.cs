@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using DadJokes.Api;
 using DadJokes.Utilities;
 using DadJokes.WebApp.Models;
@@ -25,24 +26,26 @@ namespace DadJokes.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Random()
+        public async Task<IActionResult> Random()
         {
             var viewModel = new RandomViewModel();
-            viewModel.RandomJoke = _jokeService.GetRandomJoke().Joke;
+            var randomJoke = await _jokeService.GetRandomJoke();
+            viewModel.RandomJoke = randomJoke.Joke;
 
             return View(viewModel);
         }
 
-        public IActionResult Search(string searchTerm)
+        public async Task<IActionResult> Search(string searchTerm)
         {
             var viewModel = new SearchViewModel();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 viewModel.SearchTerm = searchTerm;
-                var jokeSearchResults = _jokeService.GetBySearchTerm(searchTerm);
+                var jokeSearchResults = await _jokeService.GetBySearchTerm(searchTerm);
                 viewModel.GroupedJokes = jokeSearchResults
                     .Select(x => x.Joke)
+                    // TODO: Emphasize search term
                     .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
             }
 
