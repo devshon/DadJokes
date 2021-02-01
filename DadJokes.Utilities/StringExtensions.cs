@@ -42,14 +42,14 @@ namespace DadJokes.Utilities
         }
 
         /// <summary>
-        /// Groups collection of strings into three categories based on word length: short, medium and long.
+        /// Groups collection of strings into three categories based on word length: Short, Medium and Long.
         /// </summary>
-        /// <param name="inputStrings">Collection of strings.</param>
+        /// <param name="inputStrings">Collection of strings to group.</param>
         /// <param name="longLowerLimit">The lower word length limit for the long group.</param>
         /// <param name="mediumLowerLimit">The lower word length limit for the medium group.</param>
         /// <param name="shortLowerLimit">The lower word length limit for the short group.</param>
         /// <returns>Grouped string collections based on word length: short, medium and long.</returns>
-        public static IList<IEnumerable<string>> ToGroupsByWordLength(
+        public static IDictionary<string, IEnumerable<string>> ToGroupsByWordLength(
             this IEnumerable<string> inputStrings, int longLowerLimit, int mediumLowerLimit, int shortLowerLimit = 0)
         {
             if (longLowerLimit <= mediumLowerLimit || mediumLowerLimit <= shortLowerLimit)
@@ -68,10 +68,10 @@ namespace DadJokes.Utilities
             var longs = inputStrings
                 .Where(x => x.GetNumberOfWords() >= longLowerLimit);
 
-            var groups = new List<IEnumerable<string>>();
-            groups.Add(shorts);
-            groups.Add(mediums);
-            groups.Add(longs);
+            var groups = new Dictionary<string, IEnumerable<string>>();
+            groups.Add("Short",shorts);
+            groups.Add("Medium", mediums);
+            groups.Add("Long", longs);
 
             return groups;
         }

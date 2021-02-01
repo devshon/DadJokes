@@ -11,7 +11,7 @@ namespace DadJokes.ConsoleApp
 
         static void Main(string[] args)
         {
-            _jokeService = new DadJokeService(new HttpClient());
+            _jokeService = new DadJokeService();
 
             var randomJoke = _jokeService.GetRandomJoke();
 

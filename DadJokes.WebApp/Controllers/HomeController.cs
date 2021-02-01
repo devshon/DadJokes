@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using DadJokes.Models;
+using DadJokes.Api;
+using DadJokes.Utilities;
+using DadJokes.WebApp.Models;
+using DadJokes.WebApp.Models.Home;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace DadJokes.Controllers
+namespace DadJokes.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly int _jokeGroupingLongLowerLimit = 20;
+        private readonly int _jokeGroupingMediumLowerLimit = 10;
+        private readonly int _jokeGroupingShortLowerLimit = 0;
+        private readonly IJokeService _jokeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IJokeService jokeService)
         {
-            _logger = logger;
+            _jokeService = jokeService;
         }
 
         public IActionResult Index()
@@ -23,9 +25,28 @@ namespace DadJokes.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Random()
         {
-            return View();
+            var viewModel = new RandomViewModel();
+            viewModel.RandomJoke = _jokeService.GetRandomJoke().Joke;
+
+            return View(viewModel);
+        }
+
+        public IActionResult Search(string searchTerm)
+        {
+            var viewModel = new SearchViewModel();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                viewModel.SearchTerm = searchTerm;
+                var jokeSearchResults = _jokeService.GetBySearchTerm(searchTerm);
+                viewModel.GroupedJokes = jokeSearchResults
+                    .Select(x => x.Joke)
+                    .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
+            }
+
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
