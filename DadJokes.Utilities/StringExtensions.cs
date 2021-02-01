@@ -58,12 +58,12 @@ namespace DadJokes.Utilities
             }
 
             var shorts = inputStrings
-                .Where(x => x.GetNumberOfWords() < mediumLowerLimit)
-                .Where(x => x.GetNumberOfWords() >= shortLowerLimit);
+                .Where(s => s.GetNumberOfWords() < mediumLowerLimit)
+                .Where(s => s.GetNumberOfWords() >= shortLowerLimit);
 
             var mediums = inputStrings
-                .Where(x => x.GetNumberOfWords() < longLowerLimit)
-                .Where(x => x.GetNumberOfWords() >= mediumLowerLimit);
+                .Where(s => s.GetNumberOfWords() < longLowerLimit)
+                .Where(s => s.GetNumberOfWords() >= mediumLowerLimit);
 
             var longs = inputStrings
                 .Where(x => x.GetNumberOfWords() >= longLowerLimit);
