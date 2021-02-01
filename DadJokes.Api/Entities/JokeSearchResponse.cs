@@ -31,5 +31,8 @@ namespace DadJokes.Api.Entities
 
         [JsonProperty("total_pages")]
         public int TotalPages { get; set; }
+
+        [JsonIgnore]
+        public IDictionary<string, IEnumerable<string>> ResultsGrouped { get; set; }
     }
 }

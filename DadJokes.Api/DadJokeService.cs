@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -18,9 +18,14 @@ namespace DadJokes.Api
         private readonly string _getRandomJokeEndpoint = string.Empty;
         private readonly string _getBySearchTermEndpoint = "/search";
         private readonly int _getBySearchTermResultsLimit = 30;
+
         private readonly string _headerAcceptMediaType = "application/json";
         private readonly string _headerUserAgentProductName = "ShonsDadJokeService";
         private readonly string _headerUserAgentProductVersion = "1.0";
+
+        private readonly int _jokeGroupingLongLowerLimit = 20;
+        private readonly int _jokeGroupingMediumLowerLimit = 10;
+        private readonly int _jokeGroupingShortLowerLimit = 0;
 
         private HttpClient _httpClient;
 
@@ -57,14 +62,18 @@ namespace DadJokes.Api
             {
                 jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(jokeSearchReponse.SearchTerm);
             }
-            // TODO: group?
+
+            jokeSearchReponse.ResultsGrouped = jokeSearchReponse.Results.
+                Select(j => j.Joke)
+                .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
+
             return jokeSearchReponse;
         }
 
         /// <summary>
         /// Gets a random joke from the API.
         /// </summary>
-        /// <returns>JokeResult representing a random joke.</returns>
+        /// <returns>A random joke from the API.</returns>
         public async Task<JokeResponse> GetRandomJoke()
         {
             var responseMessage = await _httpClient.GetAsync(_getRandomJokeEndpoint);

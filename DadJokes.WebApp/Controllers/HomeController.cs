@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using DadJokes.Api;
-using DadJokes.Utilities;
 using DadJokes.WebApp.Models;
 using DadJokes.WebApp.Models.Home;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +9,6 @@ namespace DadJokes.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly int _jokeGroupingLongLowerLimit = 20;
-        private readonly int _jokeGroupingMediumLowerLimit = 10;
-        private readonly int _jokeGroupingShortLowerLimit = 0;
         private readonly IJokeService _jokeService;
 
         public HomeController(IJokeService jokeService)
@@ -42,7 +37,9 @@ namespace DadJokes.WebApp.Controllers
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 viewModel.SearchTerm = searchTerm;
+
                 var jokeSearchResponse = await _jokeService.GetBySearchTerm(searchTerm);
+                viewModel.GroupedJokes = jokeSearchResponse.ResultsGrouped;
             }
 
             return View(viewModel);
