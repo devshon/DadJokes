@@ -2,6 +2,9 @@
 
 namespace DadJokes.Api.Entities
 {
+    /// <summary>
+    /// Represents a response from the Dad Joke API random joke endpoint.
+    /// </summary>
     public class JokeResult
     {
         [JsonProperty("id")]

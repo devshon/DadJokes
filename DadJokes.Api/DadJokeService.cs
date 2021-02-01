@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace DadJokes.Api
 {
+    /// <summary>
+    /// Dad Joke API service that communicates with the https://icanhazdadjoke.com/ API.
+    /// </summary>
     public class DadJokeService : IJokeService
     {
         private readonly string _acceptMediaType = "application/json";
@@ -18,6 +21,9 @@ namespace DadJokes.Api
 
         private HttpClient _httpClient;
 
+        /// <summary>
+        /// Creates a new instance of DadJokeService.
+        /// </summary>
         public DadJokeService()
         {
             // TODO: Should this be hiding HttpClient?
@@ -27,9 +33,14 @@ namespace DadJokes.Api
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_acceptMediaType));
         }
 
+        /// <summary>
+        /// Gets a collection of jokes by the search term provided.
+        /// </summary>
+        /// <param name="searchTerm">The term to search for jokes with.</param>
+        /// <returns>Collection of jokes that contain the search term provided.</returns>
+        /// <remarks>Results are limited to a maximum of 30.</remarks>
         public async Task<IEnumerable<JokeResult>> GetBySearchTerm(string searchTerm)
         {
-            // TODO: Move creation of query string somewhere else
             var responseMessage = await _httpClient.GetAsync(_getBySearchTermEndpoint + $"?term=\"{searchTerm}\"&limit={_getBySearchTermResultsLimit}");
             string content = await responseMessage.Content.ReadAsStringAsync();
 
@@ -38,6 +49,10 @@ namespace DadJokes.Api
             return jokeSearchResults.Results;
         }
 
+        /// <summary>
+        /// Gets a random joke from the API.
+        /// </summary>
+        /// <returns>JokeResult representing a random joke.</returns>
         public async Task<JokeResult> GetRandomJoke()
         {
             var responseMessage = await _httpClient.GetAsync(_getRandomJokeEndpoint);

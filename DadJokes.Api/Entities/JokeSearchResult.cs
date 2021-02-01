@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace DadJokes.Api.Entities
 {
+    /// <summary>
+    /// Represents a JSON response from the Dad Joke API search endpoint.
+    /// </summary>
     public class JokeSearchResult
     {
         [JsonProperty("current_page")]
