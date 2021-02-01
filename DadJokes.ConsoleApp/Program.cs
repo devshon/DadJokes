@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using DadJokes.Api;
 using DadJokes.Utilities;
 
@@ -20,6 +21,8 @@ namespace DadJokes.ConsoleApp
             {
                 searchResult.Joke = searchResult.Joke.EmphasizeWithUppercase("dog");
             }
+
+            var groupedJokes = Grouper.GroupByWordLength(searchResults.Select(x => x.Joke));
         }
     }
 }
