@@ -11,13 +11,14 @@
     </div>
 </form>
 
-<div class="mt-4">
+<div>
     @if (Model.GroupedJokes != null)
     {
         foreach (var jokeGroup in Model.GroupedJokes)
         {
-            <ul class="list-group mt-4">
-                @foreach (var joke in jokeGroup)
+            <h2 class="mt-4">@jokeGroup.Key</h2>
+            <ul class="list-group">
+                @foreach (var joke in jokeGroup.Value)
                 {
                     <li class="list-group-item">@joke</li>
                 }

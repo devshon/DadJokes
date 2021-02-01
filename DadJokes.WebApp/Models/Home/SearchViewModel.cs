@@ -6,6 +6,6 @@ namespace DadJokes.WebApp.Models.Home
     public class SearchViewModel
     {
         public string SearchTerm { get; set; }
-        public IList<IEnumerable<string>> GroupedJokes { get; set; }
+        public IDictionary<string, IEnumerable<string>> GroupedJokes { get; set; }
     }
 }
