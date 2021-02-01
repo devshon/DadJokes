@@ -41,7 +41,6 @@ namespace DadJokes.Api
         /// <remarks>Results are limited to a maximum of 30.</remarks>
         public async Task<IEnumerable<JokeResult>> GetBySearchTerm(string searchTerm)
         {
-            // TODO: Move creation of query string somewhere else
             var responseMessage = await _httpClient.GetAsync(_getBySearchTermEndpoint + $"?term=\"{searchTerm}\"&limit={_getBySearchTermResultsLimit}");
             string content = await responseMessage.Content.ReadAsStringAsync();
 

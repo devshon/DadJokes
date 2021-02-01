@@ -5,7 +5,7 @@ using DadJokes.Api.Entities;
 namespace DadJokes.Api
 {
     /// <summary>
-    /// Represents a joke service contract.
+    /// Represents a joke service.
     /// </summary>
     public interface IJokeService
     {
