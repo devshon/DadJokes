@@ -9,6 +9,35 @@ namespace DadJokes.Api.Utilities
 {
     public static class DadJokeServiceHelpers
     {
+        public static IEnumerable<JokeResponse> EmphasizeWithUppercase(this IEnumerable<JokeResponse> jokeResponses, string termToEmphasize)
+        {
+            // TODO: Clean up
+
+            var emphasizedJokes = jokeResponses;
+
+            // Account for cases where there are two or more terms in the search term
+            var splitSearchTerms = termToEmphasize.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var joke in emphasizedJokes)
+            {
+                foreach (var splitSearchTerm in splitSearchTerms)
+                {
+                    joke.Joke = joke.Joke.EmphasizeWithUppercase(splitSearchTerm);
+                }
+            }
+
+            return emphasizedJokes;
+        }
+
+        public static string GetSearchRequestUriWithQueryString(string endpoint, string term, int limit)
+        {
+            var queryStringParameters = new Dictionary<string, string>();
+            queryStringParameters.Add("limit", limit.ToString());
+            queryStringParameters.Add("term", term);
+
+            return QueryHelpers.AddQueryString(endpoint, queryStringParameters);
+        }
+
         public static IDictionary<string, IEnumerable<JokeResponse>> GroupByJokeSize(IEnumerable<JokeResponse> jokeResponses)
         {
             var resultsGrouped = new Dictionary<string, IEnumerable<JokeResponse>>();
@@ -23,35 +52,6 @@ namespace DadJokes.Api.Utilities
             resultsGrouped.Add(nameof(JokeSize.Long), longGroup);
 
             return resultsGrouped;
-        }
-
-        public static IEnumerable<JokeResponse> EmphasizeWithUppercase(this IEnumerable<JokeResponse> jokeResponses, string termToEmphasize)
-        {
-            // TODO: Clean up
-
-            var emphasizedJoke = jokeResponses;
-
-            // Account for cases where there are two or more terms in the search term
-            var splitSearchTerms = termToEmphasize.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var jokeReponse in emphasizedJoke)
-            {
-                foreach (var splitSearchTerm in splitSearchTerms)
-                {
-                    jokeReponse.Joke = jokeReponse.Joke.EmphasizeWithUppercase(splitSearchTerm);
-                }
-            }
-
-            return emphasizedJoke;
-        }
-
-        public static string GetSearchRequestUriWithQueryString(string endpoint, string term, int limit)
-        {
-            var queryStringParameters = new Dictionary<string, string>();
-            queryStringParameters.Add("limit", limit.ToString());
-            queryStringParameters.Add("term", term);
-
-            return QueryHelpers.AddQueryString(endpoint, queryStringParameters);
         }
     }
 }
