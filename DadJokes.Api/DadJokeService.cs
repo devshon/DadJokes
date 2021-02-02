@@ -64,9 +64,12 @@ namespace DadJokes.Api
 
             var jokeSearchReponse = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
-            foreach (var jokeResult in jokeSearchReponse.Results)
+            if (searchTerm != null)
             {
-                jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(jokeSearchReponse.SearchTerm);
+                foreach (var jokeResult in jokeSearchReponse.Results)
+                {
+                    jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(searchTerm);
+                }
             }
 
             jokeSearchReponse.ResultsGrouped = jokeSearchReponse.Results.
