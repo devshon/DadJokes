@@ -5,9 +5,8 @@ A simple web application that utilizes the [*icanhazdadjoke* public API](https:/
 * The backend is writen in **C#**
 * An **ASP.NET Core Web App** is used to present a frontend
 * Standard **MVC** pattern is followed 
-* Target Framework is **.NET 5.0**
+* Target Framework is **.NET 5.0** ([Download SDK and Runtime](https://dotnet.microsoft.com/download/dotnet/5.0))
 * **Newtonsoft.JSON** is used for deserializing API respones to .NET types
-
 
 ## Features
 This web application has two main features that are similar to the [*icanhazdadjoke* website](https://icanhazdadjoke.com/):
@@ -28,6 +27,7 @@ Navigate to the *Search* webpage by clicking the link in the navigation bar. Typ
 
 #### Searching with multiple terms
 The DadJoke API does support mutliple terms when searching. It will split the terms on whitespace and use an OR operation when searching. 
+
 ```
 Ex. A search for "cat dog" will return jokes that contain "cat" or "dog". 
 ```
