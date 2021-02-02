@@ -1,5 +1,5 @@
 # Dad Jokes Web Application
-A simple **ASP.NET Core MVC** application writing in **C#** that consumes the [*icanhazdadjoke* public API](https://icanhazdadjoke.com/api). 
+A simple web application that utilizes the [*icanhazdadjoke* public API](https://icanhazdadjoke.com/api). 
 
 ## Technologies
 * The backend is writen in **C#**
