@@ -2,7 +2,7 @@
 using DadJokes.Api.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DadJokes.UnitTests.Utilities
+namespace DadJokes.UnitTests.Api
 {
     [TestClass]
     public class StringHelpersTests
