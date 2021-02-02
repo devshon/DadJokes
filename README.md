@@ -6,6 +6,7 @@ A simple **ASP.NET Core MVC** application writing in **C#** that consumes the [*
 * An **ASP.NET Core Web App** is used as the frontend
 * Standard **MVC** pattern is followed 
 * Target Framework is **.NET 5.0**
+* **Newtonsoft.JSON** is used for deserializing API respones to .NET types.
 
 
 ## Features
