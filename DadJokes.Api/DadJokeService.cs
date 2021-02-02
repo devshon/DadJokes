@@ -65,6 +65,7 @@ namespace DadJokes.Api
 
             var jokeSearchReponse = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
+            // TODO: Move this to maybe a helper class
             if (searchTerm != null)
             {
                 // Account for cases where there are two or more terms in the search term
@@ -79,9 +80,19 @@ namespace DadJokes.Api
                 }
             }
 
-            jokeSearchReponse.ResultsGrouped = jokeSearchReponse.Results.
-                Select(j => j.Joke)
-                .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
+            // TODO: Move this to maybe a helper class
+            var resultsGrouped = new Dictionary<string, IEnumerable<string>>();
+
+            var shortGroup = jokeSearchReponse.Results.Where(j => j.Size == nameof(JokeSize.Short)).Select(j => j.Joke);
+            resultsGrouped.Add(nameof(JokeSize.Short), shortGroup);
+
+            var mediumGroup = jokeSearchReponse.Results.Where(j => j.Size == nameof(JokeSize.Medium)).Select(j => j.Joke);
+            resultsGrouped.Add(nameof(JokeSize.Medium), mediumGroup);
+
+            var longGroup = jokeSearchReponse.Results.Where(j => j.Size == nameof(JokeSize.Long)).Select(j => j.Joke);
+            resultsGrouped.Add(nameof(JokeSize.Long), longGroup);
+
+            jokeSearchReponse.ResultsGrouped = resultsGrouped;
 
             return jokeSearchReponse;
         }
