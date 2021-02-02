@@ -35,12 +35,12 @@ Ex. A search for "cat dog" will return jokes that contain "cat" or "dog".
 #### Search Results
 A maximum of 30 jokes will be returned in a search result. 
 
+The search term is emphasized with all UPPERCASE letters.
+
 The results are grouped into 3 categories:
 * Short: Less than 10 words.
 * Medium: 10 or more words but less than 20.
 * Long: 20 or more words.
-
-The search term is emphasized with all UPPERCASE letters.
 
 ## Implementation
 
