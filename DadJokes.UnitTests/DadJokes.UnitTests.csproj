@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DadJokes.Api\DadJokes.Api.csproj" />
-    <ProjectReference Include="..\DadJokes.Utilities\DadJokes.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DadJokes.Api.Entities;
+﻿using DadJokes.Api.Entities;
 using DadJokes.Api.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DadJokes.UnitTests.DadJokes.Api
+namespace DadJokes.UnitTests.Api
 {
     [TestClass]
     public class DadJokeServiceHelpersTests

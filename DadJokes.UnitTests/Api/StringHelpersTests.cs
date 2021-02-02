@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DadJokes.Utilities;
+using DadJokes.Api.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DadJokes.UnitTests.DadJokes.Utilities
+namespace DadJokes.UnitTests.Utilities
 {
     [TestClass]
-    public class StringExtensionsTests
+    public class StringHelpersTests
     {
         #region [ EmphasizeWithUppercase() ]
 
@@ -84,43 +79,6 @@ namespace DadJokes.UnitTests.DadJokes.Utilities
             // Assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => input.EmphasizeWithUppercase(termToEmphasize));
         }
-
-        #endregion
-
-        #region [ GetNumberOfWords() ]
-
-        [TestMethod]
-        public void GetNumberOfWords_ExtraSpacedInput_IgnoresExtraSpace()
-        {
-            // Arrange
-            string inputSingleSpaced = "This is the input string.";
-            string inputExtraSpaced = "This is     the  input   string.  ";
-
-            // Act
-            int singleSpaced = inputSingleSpaced.GetNumberOfWords();
-            int extraSpaced = inputExtraSpaced.GetNumberOfWords();
-
-            // Assert
-            Assert.AreEqual(singleSpaced, extraSpaced);
-        }
-
-        [TestMethod]
-        public void GetNumberOfWords_SingleSpacedInput_ReturnsCorrectValue()
-        {
-            // Arrange
-            string input = "This is the input string.";
-            int expected = 5;
-
-            // Act
-            int actual = input.GetNumberOfWords();
-
-            // Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        #endregion
-
-        #region [ ToGroupByWordLength() ]
 
         #endregion
     }
