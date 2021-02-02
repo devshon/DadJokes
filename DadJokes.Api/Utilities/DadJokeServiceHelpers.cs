@@ -9,18 +9,17 @@ namespace DadJokes.Api.Utilities
 {
     public static class DadJokeServiceHelpers
     {
-        // TODO: Consider changing dictionary value to IEnumberable<JokeResponse>
-        public static IDictionary<string, IEnumerable<string>> GroupJokesBySize(IEnumerable<JokeResponse> jokeResponses)
+        public static IDictionary<string, IEnumerable<JokeResponse>> GroupByJokeSize(IEnumerable<JokeResponse> jokeResponses)
         {
-            var resultsGrouped = new Dictionary<string, IEnumerable<string>>();
+            var resultsGrouped = new Dictionary<string, IEnumerable<JokeResponse>>();
 
-            var shortGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Short)).Select(j => j.Joke);
+            var shortGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Short));
             resultsGrouped.Add(nameof(JokeSize.Short), shortGroup);
 
-            var mediumGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Medium)).Select(j => j.Joke);
+            var mediumGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Medium));
             resultsGrouped.Add(nameof(JokeSize.Medium), mediumGroup);
 
-            var longGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Long)).Select(j => j.Joke);
+            var longGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Long));
             resultsGrouped.Add(nameof(JokeSize.Long), longGroup);
 
             return resultsGrouped;

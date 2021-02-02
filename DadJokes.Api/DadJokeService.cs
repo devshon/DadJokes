@@ -58,7 +58,7 @@ namespace DadJokes.Api
                 jokeSearchReponse.Results = jokeSearchReponse.Results.EmphasizeWithUppercase(searchTerm);
             }
 
-            jokeSearchReponse.ResultsGrouped = DadJokeServiceHelpers.GroupJokesBySize(jokeSearchReponse.Results);
+            jokeSearchReponse.ResultsBySize = DadJokeServiceHelpers.GroupByJokeSize(jokeSearchReponse.Results);
 
             return jokeSearchReponse;
         }
