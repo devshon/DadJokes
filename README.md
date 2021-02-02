@@ -3,7 +3,7 @@ A simple web application that utilizes the [*icanhazdadjoke* public API](https:/
 
 ## Technologies
 * The backend is writen in **C#**
-* An **ASP.NET Core Web App** is used as the frontend
+* An **ASP.NET Core Web App** is used to present a frontend
 * Standard **MVC** pattern is followed 
 * Target Framework is **.NET 5.0**
 * **Newtonsoft.JSON** is used for deserializing API respones to .NET types
