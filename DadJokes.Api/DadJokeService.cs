@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DadJokes.Api.Entities;
 using DadJokes.Utilities;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 
 namespace DadJokes.Api
@@ -15,9 +17,8 @@ namespace DadJokes.Api
     public class DadJokeService : IJokeService
     {
         private readonly string _baseAddress = "https://icanhazdadjoke.com/";
-        private readonly string _getRandomJokeEndpoint = string.Empty;
-        private readonly string _getBySearchTermEndpoint = "/search";
-        private readonly int _getBySearchTermResultsLimit = 30;
+        private readonly string _endpointGetRandomJoke = string.Empty;
+        private readonly string _endpointGetBySearchTerm = "search";
 
         private readonly string _headerAcceptMediaType = "application/json";
         private readonly string _headerUserAgentProductName = "ShonsDadJokeService";
@@ -46,11 +47,16 @@ namespace DadJokes.Api
         /// Gets a collection of jokes by the search term provided.
         /// </summary>
         /// <param name="searchTerm">The term to search for jokes with.</param>
+        /// <param name="limit">The maximum number of search results to return. Default is 30.</param>
         /// <returns>Collection of jokes that contain the search term provided.</returns>
-        /// <remarks>Results are limited to a maximum of 30.</remarks>
-        public async Task<JokeSearchResponse> GetBySearchTerm(string searchTerm)
+        public async Task<JokeSearchResponse> GetBySearchTerm(string searchTerm, int limit = 30)
         {
-            var responseMessage = await _httpClient.GetAsync(_getBySearchTermEndpoint + $"?term={searchTerm}&limit={_getBySearchTermResultsLimit}");
+            var queryStringParameters = new Dictionary<string, string>();
+            queryStringParameters.Add("limit", limit.ToString());
+            queryStringParameters.Add("term", searchTerm);
+
+            var queryStringHelper = QueryHelpers.AddQueryString(_endpointGetBySearchTerm, queryStringParameters);
+            var responseMessage = await _httpClient.GetAsync(queryStringHelper);
             
             responseMessage.EnsureSuccessStatusCode();
 
@@ -76,7 +82,7 @@ namespace DadJokes.Api
         /// <returns>A random joke from the API.</returns>
         public async Task<JokeResponse> GetRandomJoke()
         {
-            var responseMessage = await _httpClient.GetAsync(_getRandomJokeEndpoint);
+            var responseMessage = await _httpClient.GetAsync(_endpointGetRandomJoke);
             
             responseMessage.EnsureSuccessStatusCode();
 

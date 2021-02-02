@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DadJokes.Api.Entities;
 
 namespace DadJokes.Api
@@ -13,8 +12,9 @@ namespace DadJokes.Api
         /// Gets jokes based on search term provided. 
         /// </summary>
         /// <param name="searchTerm">The term to search for jokes with.</param>
+        /// <param name="limit">The maximum number of search results to return. Default is 30.</param>
         /// <returns>Collection of jokes that contain the search term provided.</returns>
-        Task<JokeSearchResponse> GetBySearchTerm(string searchTerm);
+        Task<JokeSearchResponse> GetBySearchTerm(string searchTerm, int limit = 30);
 
         /// <summary>
         /// Gets a random joke.
