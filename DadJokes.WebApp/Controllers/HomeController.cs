@@ -34,13 +34,10 @@ namespace DadJokes.WebApp.Controllers
         {
             var viewModel = new SearchViewModel();
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                viewModel.SearchTerm = searchTerm;
+            viewModel.SearchTerm = searchTerm;
 
-                var jokeSearchResponse = await _jokeService.GetBySearchTerm(searchTerm);
-                viewModel.GroupedJokes = jokeSearchResponse.ResultsGrouped;
-            }
+            var jokeSearchResponse = await _jokeService.GetBySearchTerm(searchTerm);
+            viewModel.GroupedJokes = jokeSearchResponse.ResultsGrouped;
 
             return View(viewModel);
         }
