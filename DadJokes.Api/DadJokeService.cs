@@ -37,7 +37,7 @@ namespace DadJokes.Api
         }
 
         /// <summary>
-        /// Gets a collection of jokes by the search term provided. 
+        /// Gets a collection of jokes by the search term provided. Supports multiple search terms, split by whitespaces.
         /// An OR operation is used by the API if more than one term is given.
         /// </summary>
         /// <param name="searchTerm">The term to search for jokes with.</param>
@@ -54,9 +54,12 @@ namespace DadJokes.Api
 
             if (searchTerm != null)
             {
-                jokeSearchReponse.Results = jokeSearchReponse.Results.EmphasizeWithUppercase(searchTerm);
+                // Account for cases where there are two or more terms in the search term
+                string[] searchTermSplit = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                jokeSearchReponse.Results = jokeSearchReponse.Results.EmphasizeWithUppercase(searchTermSplit);
             }
 
+            // TODO: Consider moving this into the getter?
             jokeSearchReponse.ResultsBySize = DadJokeServiceHelpers.GroupByJokeSize(jokeSearchReponse.Results);
 
             return jokeSearchReponse;

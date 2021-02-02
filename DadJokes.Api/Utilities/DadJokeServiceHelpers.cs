@@ -12,21 +12,18 @@ namespace DadJokes.Api.Utilities
     public static class DadJokeServiceHelpers
     {
         /// <summary>
-        /// Emphasizes the given term in each joke, if found.
+        /// Emphasizes the given search terms in each joke, if found.
         /// </summary>
         /// <param name="jokeResponses">Collection of jokes to look for the term in.</param>
-        /// <param name="termToEmphasize">The term to emphasize.</param>
+        /// <param name="termsToEmphasize">Collection of terms to emphasize.</param>
         /// <returns>The same collection of jokes but with emphasized (all uppercase) search terms.</returns>
-        public static IEnumerable<JokeResponse> EmphasizeWithUppercase(this IEnumerable<JokeResponse> jokeResponses, string termToEmphasize)
+        public static IEnumerable<JokeResponse> EmphasizeWithUppercase(this IEnumerable<JokeResponse> jokeResponses, string[] termsToEmphasize)
         {
             var emphasizedJokes = jokeResponses;
 
-            // Account for cases where there are two or more terms in the search term
-            var splitSearchTerms = termToEmphasize.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
             foreach (var joke in emphasizedJokes)
             {
-                foreach (var splitSearchTerm in splitSearchTerms)
+                foreach (var splitSearchTerm in termsToEmphasize)
                 {
                     joke.Joke = joke.Joke.EmphasizeWithUppercase(splitSearchTerm);
                 }
