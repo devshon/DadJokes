@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DadJokes.Api.Entities;
 using DadJokes.Api.Utilities;
 using DadJokes.Utilities;
-using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 
 namespace DadJokes.Api
@@ -48,17 +46,11 @@ namespace DadJokes.Api
         /// <returns>Collection of jokes that contain the search term provided.</returns>
         public async Task<JokeSearchResponse> GetBySearchTerm(string searchTerm, int limit = 30)
         {
-            var queryStringParameters = new Dictionary<string, string>();
-            queryStringParameters.Add("limit", limit.ToString());
-            queryStringParameters.Add("term", searchTerm);
-
-            var queryStringHelper = QueryHelpers.AddQueryString(_endpointGetBySearchTerm, queryStringParameters);
-            var responseMessage = await _httpClient.GetAsync(queryStringHelper);
-            
+            var responseMessage = await _httpClient.GetAsync(
+                JokeHelpers.GetSearchRequestUriWithQueryString(_endpointGetBySearchTerm, searchTerm, limit));
             responseMessage.EnsureSuccessStatusCode();
 
             string content = await responseMessage.Content.ReadAsStringAsync();
-
             var jokeSearchReponse = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
             if (searchTerm != null)
@@ -78,11 +70,9 @@ namespace DadJokes.Api
         public async Task<JokeResponse> GetRandomJoke()
         {
             var responseMessage = await _httpClient.GetAsync(_endpointGetRandomJoke);
-            
             responseMessage.EnsureSuccessStatusCode();
 
             string content = await responseMessage.Content.ReadAsStringAsync();
-
             var jokeResult = JsonConvert.DeserializeObject<JokeResponse>(content);
 
             return jokeResult;

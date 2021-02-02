@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using DadJokes.Api.Entities;
 using DadJokes.Utilities;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace DadJokes.Api.Utilities
 {
+    // TODO: Consider renaming, maybe DadJokeServiceHelpers?
     public static class JokeHelpers
     {
+        // TODO: Consider changing dictionary value to IEnumberable<JokeResponse>
         public static IDictionary<string, IEnumerable<string>> GroupJokesBySize(IEnumerable<JokeResponse> jokeResponses)
         {
             var resultsGrouped = new Dictionary<string, IEnumerable<string>>();
@@ -42,6 +45,15 @@ namespace DadJokes.Api.Utilities
             }
 
             return emphasizedJoke;
+        }
+
+        public static string GetSearchRequestUriWithQueryString(string endpoint, string term, int limit)
+        {
+            var queryStringParameters = new Dictionary<string, string>();
+            queryStringParameters.Add("limit", limit.ToString());
+            queryStringParameters.Add("term", term);
+
+            return QueryHelpers.AddQueryString(endpoint, queryStringParameters);
         }
     }
 }
