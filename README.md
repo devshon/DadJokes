@@ -2,9 +2,10 @@
 A simple **ASP.NET Core MVC** application writing in **C#** that consumes the [*icanhazdadjoke* public API](https://icanhazdadjoke.com/api). 
 
 ## Technologies
-* C#
-* ASP.NET Core Web App
-* MVC
+* The backend is writen in **C#**
+* An **ASP.NET Core Web App** is used as the frontend
+* Standard **MVC** pattern is followed 
+* Target Framework is **.NET 5.0**
 
 
 ## Features
@@ -39,3 +40,11 @@ The results are grouped into 3 categories:
 * Long: 20 or more words.
 
 The search term is emphasized with all UPPERCASE letters.
+
+## Implementation
+
+### IJokeService
+
+### DadJokeService
+
+### POCOs
