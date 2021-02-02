@@ -23,7 +23,11 @@ This web application has two main features that are similar to the [*icanhazdadj
 Navigate to the *Random* webpage by clicking the link the navigation bar. A random joke is automatically fetched on each request to this page. Refresh your browser window to fetch a new random joke. 
 
 ### Searching for jokes
-Navigate to the *Search* webpage by clicking the link in the navigation bar. Type your search term in the text field and click the *Search* button to submit your request. 
+Navigate to the *Search* webpage by clicking the link in the navigation bar. Type your search term in the text field and click the *Search* button to submit your request. The search will look for jokes that *contain* the search term.
+
+```
+Ex. A search for "me" will return results with words like ME, MEat, hoME, coMEt.
+```
 
 #### Searching with multiple terms
 The DadJoke API does support mutliple terms when searching. It will split the terms on whitespace and use an OR operation when searching. 
