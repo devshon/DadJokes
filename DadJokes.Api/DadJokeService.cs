@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DadJokes.Api.Entities;
+using DadJokes.Api.Utilities;
 using DadJokes.Utilities;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -65,34 +66,12 @@ namespace DadJokes.Api
 
             var jokeSearchReponse = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
-            // TODO: Move this to maybe a helper class
             if (searchTerm != null)
             {
-                // Account for cases where there are two or more terms in the search term
-                var splitSearchTerms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var jokeResult in jokeSearchReponse.Results)
-                {
-                    foreach (var splitSearchTerm in splitSearchTerms)
-                    {
-                        jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(splitSearchTerm);
-                    }
-                }
+                jokeSearchReponse.Results = jokeSearchReponse.Results.EmphasizeWithUppercase(searchTerm);
             }
 
-            // TODO: Move this to maybe a helper class
-            var resultsGrouped = new Dictionary<string, IEnumerable<string>>();
-
-            var shortGroup = jokeSearchReponse.Results.Where(j => j.Size == nameof(JokeSize.Short)).Select(j => j.Joke);
-            resultsGrouped.Add(nameof(JokeSize.Short), shortGroup);
-
-            var mediumGroup = jokeSearchReponse.Results.Where(j => j.Size == nameof(JokeSize.Medium)).Select(j => j.Joke);
-            resultsGrouped.Add(nameof(JokeSize.Medium), mediumGroup);
-
-            var longGroup = jokeSearchReponse.Results.Where(j => j.Size == nameof(JokeSize.Long)).Select(j => j.Joke);
-            resultsGrouped.Add(nameof(JokeSize.Long), longGroup);
-
-            jokeSearchReponse.ResultsGrouped = resultsGrouped;
+            jokeSearchReponse.ResultsGrouped = JokeHelpers.GroupJokesBySize(jokeSearchReponse.Results);
 
             return jokeSearchReponse;
         }
