@@ -36,7 +36,7 @@ namespace DadJokes.Api.Entities
                 }
                 else
                 {
-                    throw new InvalidOperationException("Invalid size. Ensure size ranges are specified correctly.");
+                    throw new InvalidOperationException("Unable to determine size. Ensure size ranges are specified correctly.");
                 }
             } 
         }
