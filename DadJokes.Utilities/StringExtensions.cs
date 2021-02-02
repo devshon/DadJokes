@@ -19,7 +19,7 @@ namespace DadJokes.Utilities
         {
             if (string.IsNullOrWhiteSpace(termToEmphasize))
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(termToEmphasize), "Value cannot be null or whitespace.");
             }
 
             string output = input
@@ -52,9 +52,19 @@ namespace DadJokes.Utilities
         public static IDictionary<string, IEnumerable<string>> ToGroupsByWordLength(
             this IEnumerable<string> inputStrings, int longLowerLimit, int mediumLowerLimit, int shortLowerLimit = 0)
         {
-            if (longLowerLimit <= mediumLowerLimit || mediumLowerLimit <= shortLowerLimit)
+            if (longLowerLimit <= mediumLowerLimit || longLowerLimit <= shortLowerLimit || longLowerLimit < 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(longLowerLimit), $"Value must be positive and be greater than {nameof(mediumLowerLimit)} and {nameof(shortLowerLimit)}.");
+            }
+
+            if (mediumLowerLimit <= shortLowerLimit || mediumLowerLimit < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(mediumLowerLimit), $"Value must be positive and greater than {nameof(shortLowerLimit)}.");
+            }
+
+            if (shortLowerLimit < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(shortLowerLimit), "Value must be positive.");
             }
 
             var shorts = inputStrings
