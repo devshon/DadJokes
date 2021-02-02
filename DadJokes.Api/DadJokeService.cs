@@ -47,7 +47,7 @@ namespace DadJokes.Api
         public async Task<JokeSearchResponse> GetBySearchTerm(string searchTerm, int limit = 30)
         {
             var responseMessage = await _httpClient.GetAsync(
-                JokeHelpers.GetSearchRequestUriWithQueryString(_endpointGetBySearchTerm, searchTerm, limit));
+                DadJokeServiceHelpers.GetSearchRequestUriWithQueryString(_endpointGetBySearchTerm, searchTerm, limit));
             responseMessage.EnsureSuccessStatusCode();
 
             string content = await responseMessage.Content.ReadAsStringAsync();
@@ -58,7 +58,7 @@ namespace DadJokes.Api
                 jokeSearchReponse.Results = jokeSearchReponse.Results.EmphasizeWithUppercase(searchTerm);
             }
 
-            jokeSearchReponse.ResultsGrouped = JokeHelpers.GroupJokesBySize(jokeSearchReponse.Results);
+            jokeSearchReponse.ResultsGrouped = DadJokeServiceHelpers.GroupJokesBySize(jokeSearchReponse.Results);
 
             return jokeSearchReponse;
         }

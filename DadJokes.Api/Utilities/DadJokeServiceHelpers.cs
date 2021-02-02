@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace DadJokes.Api.Utilities
 {
-    // TODO: Consider renaming, maybe DadJokeServiceHelpers?
-    public static class JokeHelpers
+    public static class DadJokeServiceHelpers
     {
         // TODO: Consider changing dictionary value to IEnumberable<JokeResponse>
         public static IDictionary<string, IEnumerable<string>> GroupJokesBySize(IEnumerable<JokeResponse> jokeResponses)
