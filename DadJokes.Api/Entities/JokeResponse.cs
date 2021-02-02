@@ -22,21 +22,21 @@ namespace DadJokes.Api.Entities
         { 
             get 
             {
-                if (NumberOfWords >= JokeSize.Short && NumberOfWords < JokeSize.Medium)
+                if (NumberOfWords >= (int)JokeSize.Short && NumberOfWords < (int)JokeSize.Medium)
                 {
-                    return nameof(JokeSize.Short);
+                    return JokeSize.Short.ToString();
                 }
-                else if (NumberOfWords >= JokeSize.Medium && NumberOfWords < JokeSize.Long)
+                else if (NumberOfWords >= (int)JokeSize.Medium && NumberOfWords < (int)JokeSize.Long)
                 {
-                    return nameof(JokeSize.Medium);
+                    return JokeSize.Medium.ToString();
                 }
-                else if (NumberOfWords >= JokeSize.Long)
+                else if (NumberOfWords >= (int)JokeSize.Long)
                 {
-                    return nameof(JokeSize.Long);
+                    return JokeSize.Long.ToString();
                 }
                 else
                 {
-                    return string.Empty;
+                    throw new InvalidOperationException("Invalid size. Ensure size ranges are specified correctly.");
                 }
             } 
         }

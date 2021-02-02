@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DadJokes.Api.Entities;
 using DadJokes.Api.Utilities;
-using DadJokes.Utilities;
 using Newtonsoft.Json;
 
 namespace DadJokes.Api

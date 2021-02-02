@@ -2,10 +2,10 @@
 
 namespace DadJokes.Api.Entities
 {
-    public static class JokeSize
+    public enum JokeSize
     {
-        public const int Short = 0;
-        public const int Medium = 10;
-        public const int Long = 20;
+        Short = 0,
+        Medium = 10,
+        Long = 20
     }
 }

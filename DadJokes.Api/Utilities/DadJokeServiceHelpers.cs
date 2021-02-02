@@ -60,14 +60,14 @@ namespace DadJokes.Api.Utilities
         {
             var resultsGrouped = new Dictionary<string, IEnumerable<JokeResponse>>();
 
-            var shortGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Short));
-            resultsGrouped.Add(nameof(JokeSize.Short), shortGroup);
+            var shortGroup = jokeResponses.Where(j => j.Size == JokeSize.Short.ToString());
+            resultsGrouped.Add(JokeSize.Short.ToString(), shortGroup);
 
-            var mediumGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Medium));
-            resultsGrouped.Add(nameof(JokeSize.Medium), mediumGroup);
+            var mediumGroup = jokeResponses.Where(j => j.Size == JokeSize.Medium.ToString());
+            resultsGrouped.Add(JokeSize.Medium.ToString(), mediumGroup);
 
-            var longGroup = jokeResponses.Where(j => j.Size == nameof(JokeSize.Long));
-            resultsGrouped.Add(nameof(JokeSize.Long), longGroup);
+            var longGroup = jokeResponses.Where(j => j.Size == JokeSize.Long.ToString());
+            resultsGrouped.Add(JokeSize.Long.ToString(), longGroup);
 
             return resultsGrouped;
         }
