@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace DadJokes.Api.Entities
 {
@@ -12,5 +13,32 @@ namespace DadJokes.Api.Entities
 
         [JsonProperty("joke")]
         public string Joke { get; set; }
+
+        [JsonIgnore]
+        public int NumberOfWords { get { return this.Joke.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length; } }
+
+        [JsonIgnore]
+        public string Size 
+        { 
+            get 
+            {
+                if (NumberOfWords >= JokeSize.Short && NumberOfWords < JokeSize.Medium)
+                {
+                    return nameof(JokeSize.Short);
+                }
+                else if (NumberOfWords >= JokeSize.Medium && NumberOfWords < JokeSize.Long)
+                {
+                    return nameof(JokeSize.Medium);
+                }
+                else if (NumberOfWords >= JokeSize.Long)
+                {
+                    return nameof(JokeSize.Long);
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            } 
+        }
     }
 }
