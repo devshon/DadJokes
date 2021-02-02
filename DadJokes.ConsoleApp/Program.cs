@@ -11,11 +11,11 @@ namespace DadJokes.ConsoleApp
 
         static void Main(string[] args)
         {
-            _jokeService = new DadJokeService();
+            //_jokeService = new DadJokeService();
 
-            var randomJoke = _jokeService.GetRandomJoke();
+            //var randomJoke = _jokeService.GetRandomJoke();
 
-            var searchResults = _jokeService.GetBySearchTerm("dog");
+            //var searchResults = _jokeService.GetBySearchTerm("dog");
 
             //foreach (var searchResult in searchResults)
             //{

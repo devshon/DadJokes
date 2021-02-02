@@ -19,12 +19,12 @@ namespace DadJokes.Utilities
         {
             if (string.IsNullOrWhiteSpace(termToEmphasize))
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(termToEmphasize), "Value cannot be null or whitespace.");
             }
 
             string output = input
                 .Replace(termToEmphasize.ToLower(), termToEmphasize.ToUpper())
-                .Replace(Char.ToUpper(termToEmphasize[0]) + input.Substring(1), termToEmphasize.ToUpper());
+                .Replace(Char.ToUpper(termToEmphasize[0]) + termToEmphasize.Substring(1), termToEmphasize.ToUpper());
 
             return output;
         }
@@ -52,18 +52,28 @@ namespace DadJokes.Utilities
         public static IDictionary<string, IEnumerable<string>> ToGroupsByWordLength(
             this IEnumerable<string> inputStrings, int longLowerLimit, int mediumLowerLimit, int shortLowerLimit = 0)
         {
-            if (longLowerLimit <= mediumLowerLimit || mediumLowerLimit <= shortLowerLimit)
+            if (longLowerLimit <= mediumLowerLimit || longLowerLimit <= shortLowerLimit || longLowerLimit < 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(longLowerLimit), $"Value must be positive and be greater than {nameof(mediumLowerLimit)} and {nameof(shortLowerLimit)}.");
+            }
+
+            if (mediumLowerLimit <= shortLowerLimit || mediumLowerLimit < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(mediumLowerLimit), $"Value must be positive and greater than {nameof(shortLowerLimit)}.");
+            }
+
+            if (shortLowerLimit < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(shortLowerLimit), "Value must be positive.");
             }
 
             var shorts = inputStrings
-                .Where(x => x.GetNumberOfWords() < mediumLowerLimit)
-                .Where(x => x.GetNumberOfWords() >= shortLowerLimit);
+                .Where(s => s.GetNumberOfWords() < mediumLowerLimit)
+                .Where(s => s.GetNumberOfWords() >= shortLowerLimit);
 
             var mediums = inputStrings
-                .Where(x => x.GetNumberOfWords() < longLowerLimit)
-                .Where(x => x.GetNumberOfWords() >= mediumLowerLimit);
+                .Where(s => s.GetNumberOfWords() < longLowerLimit)
+                .Where(s => s.GetNumberOfWords() >= mediumLowerLimit);
 
             var longs = inputStrings
                 .Where(x => x.GetNumberOfWords() >= longLowerLimit);
