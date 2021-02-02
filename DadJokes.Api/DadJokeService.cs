@@ -44,7 +44,8 @@ namespace DadJokes.Api
         }
 
         /// <summary>
-        /// Gets a collection of jokes by the search term provided.
+        /// Gets a collection of jokes by the search term provided. 
+        /// An OR operation is used by the API if more than one term is given.
         /// </summary>
         /// <param name="searchTerm">The term to search for jokes with.</param>
         /// <param name="limit">The maximum number of search results to return. Default is 30.</param>
@@ -64,9 +65,18 @@ namespace DadJokes.Api
 
             var jokeSearchReponse = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
-            foreach (var jokeResult in jokeSearchReponse.Results)
+            if (searchTerm != null)
             {
-                jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(jokeSearchReponse.SearchTerm);
+                // Account for cases where there are two or more terms in the search term
+                var splitSearchTerms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var jokeResult in jokeSearchReponse.Results)
+                {
+                    foreach (var splitSearchTerm in splitSearchTerms)
+                    {
+                        jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(splitSearchTerm);
+                    }
+                }
             }
 
             jokeSearchReponse.ResultsGrouped = jokeSearchReponse.Results.
