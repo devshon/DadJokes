@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -24,10 +23,6 @@ namespace DadJokes.Api
         private readonly string _headerAcceptMediaType = "application/json";
         private readonly string _headerUserAgentProductName = "ShonsDadJokeService";
         private readonly string _headerUserAgentProductVersion = "1.0";
-
-        private readonly int _jokeGroupingLongLowerLimit = 20;
-        private readonly int _jokeGroupingMediumLowerLimit = 10;
-        private readonly int _jokeGroupingShortLowerLimit = 0;
 
         private HttpClient _httpClient;
 
