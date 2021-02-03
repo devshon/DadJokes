@@ -33,6 +33,6 @@ namespace DadJokes.Api.Entities
         public int TotalPages { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IEnumerable<string>> ResultsGrouped { get; set; }
+        public IDictionary<string, IEnumerable<JokeResponse>> ResultsBySize { get; set; }
     }
 }
