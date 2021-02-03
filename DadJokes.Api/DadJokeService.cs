@@ -56,7 +56,7 @@ namespace DadJokes.Api
             {
                 // Account for cases where there are two or more terms in the search term
                 string[] searchTermSplit = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                jokeSearchReponse.Results = jokeSearchReponse.Results.EmphasizeWithUppercase(searchTermSplit);
+                jokeSearchReponse.Results = DadJokeServiceHelpers.EmphasizeWithUppercase(jokeSearchReponse.Results, searchTermSplit);
             }
 
             // TODO: Consider moving this into the getter?

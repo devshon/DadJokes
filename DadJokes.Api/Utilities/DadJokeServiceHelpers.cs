@@ -16,7 +16,7 @@ namespace DadJokes.Api.Utilities
         /// <param name="jokeResponses">Collection of jokes to look for the term in.</param>
         /// <param name="termsToEmphasize">Collection of terms to emphasize.</param>
         /// <returns>The same collection of jokes but with emphasized (all uppercase) search terms.</returns>
-        public static IEnumerable<JokeResponse> EmphasizeWithUppercase(this IEnumerable<JokeResponse> jokeResponses, string[] termsToEmphasize)
+        public static IEnumerable<JokeResponse> EmphasizeWithUppercase(IEnumerable<JokeResponse> jokeResponses, string[] termsToEmphasize)
         {
             var emphasizedJokes = jokeResponses;
 
