@@ -7,8 +7,48 @@ namespace DadJokes.UnitTests.Api
     [TestClass]
     public class DadJokeServiceHelpersTests
     {
+        #region [ EmphasizeWithUppercase() ]
+
         [TestMethod]
-        public void GroupByJokeSize_Condition_Expected()
+        public void EmphasizeWithUppercase_MultipleSearchTermMatches_EmphasizesAllTerms()
+        {
+
+        }
+
+        [TestMethod]
+        public void EmphasizeWithUppercase_MultipleSearchTermOneMatch_EmphasizesMatchingTermOnly()
+        {
+
+        }
+
+        [TestMethod]
+        public void EmphasizeWithUppercase_SingleSearchTermMatch_EmphasizesMatchingTerm()
+        {
+
+        }
+
+        [TestMethod]
+        public void EmphasizeWithUppercase_ZeroMatches_DoesNotEmphasize()
+        {
+
+        }
+
+        #endregion
+
+        #region [ GetSearchRequestUriWithQueryString() ]
+
+        [TestMethod]
+        public void GetSearchRequestUriWithQueryString_conditions_expected()
+        {
+
+        }
+
+        #endregion
+
+        #region [ GroupByJokeSize() ]
+
+        [TestMethod]
+        public void GroupByJokeSize_AllJokeSizes_GroupsCorrectly()
         {
             // Arrange
             var jokeShort1 = new JokeResponse() { Joke = "one two three" };
@@ -40,5 +80,7 @@ namespace DadJokes.UnitTests.Api
                 }
             }
         }
+
+        #endregion
     }
 }
