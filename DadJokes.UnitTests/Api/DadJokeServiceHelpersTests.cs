@@ -14,44 +14,66 @@ namespace DadJokes.UnitTests.Api
         public void EmphasizeWithUppercase_MultipleSearchTermMatches_EmphasizesAllTerms()
         {
             // Arrange
+            string expected =  "this is a CAT joke with a DOG joke";
+
+            var inputJokeResponses = new JokeResponse[] { 
+                new JokeResponse() { Joke = "this is a cat joke with a dog joke" }
+            };
+
+            var inputTermsToEmphasize = new string[] { "cat", "dog" };
 
             // Act
+            string actual = DadJokeServiceHelpers
+                .EmphasizeWithUppercase(inputJokeResponses, inputTermsToEmphasize).
+                Single()
+                .Joke;
 
             // Assert
-
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void EmphasizeWithUppercase_MultipleSearchTermOneMatch_EmphasizesMatchingTermOnly()
         {
             // Arrange
+            string expected = "this is a DOG joke";
+
+            var inputJokeResponses = new JokeResponse[] {
+                new JokeResponse() { Joke = "this is a dog joke" }
+            };
+
+            var inputTermsToEmphasize = new string[] { "cat", "dog" };
 
             // Act
+            string actual = DadJokeServiceHelpers
+                .EmphasizeWithUppercase(inputJokeResponses, inputTermsToEmphasize).
+                Single()
+                .Joke;
 
             // Assert
-
-        }
-
-        [TestMethod]
-        public void EmphasizeWithUppercase_SingleSearchTermMatch_EmphasizesMatchingTerm()
-        {
-            // Arrange
-
-            // Act
-
-            // Assert
-
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void EmphasizeWithUppercase_ZeroMatches_DoesNotEmphasize()
         {
             // Arrange
+            string expected = "this is a bird joke";
+
+            var inputJokeResponses = new JokeResponse[] {
+                new JokeResponse() { Joke = "this is a bird joke" }
+            };
+
+            var inputTermsToEmphasize = new string[] { "cat", "dog" };
 
             // Act
+            string actual = DadJokeServiceHelpers
+                .EmphasizeWithUppercase(inputJokeResponses, inputTermsToEmphasize).
+                Single()
+                .Joke;
 
             // Assert
-
+            Assert.AreEqual(expected, actual);
         }
 
         #endregion
