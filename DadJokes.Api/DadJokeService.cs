@@ -59,7 +59,6 @@ namespace DadJokes.Api
                 jokeSearchReponse.Results = DadJokeServiceHelpers.EmphasizeWithUppercase(jokeSearchReponse.Results, searchTermSplit);
             }
 
-            // TODO: Consider moving this into the getter?
             jokeSearchReponse.ResultsBySize = DadJokeServiceHelpers.GroupByJokeSize(jokeSearchReponse.Results);
 
             return jokeSearchReponse;
