@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DadJokes.Api.Entities;
-using DadJokes.Utilities;
-using Microsoft.AspNetCore.WebUtilities;
+using DadJokes.Api.Utilities;
 using Newtonsoft.Json;
 
 namespace DadJokes.Api
@@ -24,10 +21,6 @@ namespace DadJokes.Api
         private readonly string _headerUserAgentProductName = "ShonsDadJokeService";
         private readonly string _headerUserAgentProductVersion = "1.0";
 
-        private readonly int _jokeGroupingLongLowerLimit = 20;
-        private readonly int _jokeGroupingMediumLowerLimit = 10;
-        private readonly int _jokeGroupingShortLowerLimit = 0;
-
         private HttpClient _httpClient;
 
         /// <summary>
@@ -44,7 +37,7 @@ namespace DadJokes.Api
         }
 
         /// <summary>
-        /// Gets a collection of jokes by the search term provided. 
+        /// Gets a collection of jokes by the search term provided. Supports multiple search terms, split by whitespaces.
         /// An OR operation is used by the API if more than one term is given.
         /// </summary>
         /// <param name="searchTerm">The term to search for jokes with.</param>
@@ -52,36 +45,21 @@ namespace DadJokes.Api
         /// <returns>Collection of jokes that contain the search term provided.</returns>
         public async Task<JokeSearchResponse> GetBySearchTerm(string searchTerm, int limit = 30)
         {
-            var queryStringParameters = new Dictionary<string, string>();
-            queryStringParameters.Add("limit", limit.ToString());
-            queryStringParameters.Add("term", searchTerm);
-
-            var queryStringHelper = QueryHelpers.AddQueryString(_endpointGetBySearchTerm, queryStringParameters);
-            var responseMessage = await _httpClient.GetAsync(queryStringHelper);
-            
+            var responseMessage = await _httpClient.GetAsync(
+                DadJokeServiceHelpers.GetSearchRequestUriWithQueryString(_endpointGetBySearchTerm, searchTerm, limit));
             responseMessage.EnsureSuccessStatusCode();
 
             string content = await responseMessage.Content.ReadAsStringAsync();
-
             var jokeSearchReponse = JsonConvert.DeserializeObject<JokeSearchResponse>(content);
 
             if (searchTerm != null)
             {
                 // Account for cases where there are two or more terms in the search term
-                var splitSearchTerms = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var jokeResult in jokeSearchReponse.Results)
-                {
-                    foreach (var splitSearchTerm in splitSearchTerms)
-                    {
-                        jokeResult.Joke = jokeResult.Joke.EmphasizeWithUppercase(splitSearchTerm);
-                    }
-                }
+                string[] searchTermSplit = searchTerm.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                jokeSearchReponse.Results = DadJokeServiceHelpers.EmphasizeWithUppercase(jokeSearchReponse.Results, searchTermSplit);
             }
 
-            jokeSearchReponse.ResultsGrouped = jokeSearchReponse.Results.
-                Select(j => j.Joke)
-                .ToGroupsByWordLength(_jokeGroupingLongLowerLimit, _jokeGroupingMediumLowerLimit, _jokeGroupingShortLowerLimit);
+            jokeSearchReponse.ResultsBySize = DadJokeServiceHelpers.GroupByJokeSize(jokeSearchReponse.Results);
 
             return jokeSearchReponse;
         }
@@ -93,11 +71,9 @@ namespace DadJokes.Api
         public async Task<JokeResponse> GetRandomJoke()
         {
             var responseMessage = await _httpClient.GetAsync(_endpointGetRandomJoke);
-            
             responseMessage.EnsureSuccessStatusCode();
 
             string content = await responseMessage.Content.ReadAsStringAsync();
-
             var jokeResult = JsonConvert.DeserializeObject<JokeResponse>(content);
 
             return jokeResult;

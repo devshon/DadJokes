@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using DadJokes.Api;
 using DadJokes.WebApp.Models;
@@ -32,12 +34,19 @@ namespace DadJokes.WebApp.Controllers
 
         public async Task<IActionResult> Search(string searchTerm)
         {
-            var viewModel = new SearchViewModel();
-
-            viewModel.SearchTerm = searchTerm;
-
             var jokeSearchResponse = await _jokeService.GetBySearchTerm(searchTerm);
-            viewModel.GroupedJokes = jokeSearchResponse.ResultsGrouped;
+
+            var groupedJokes = new Dictionary<string, IEnumerable<string>>();
+
+            foreach (var item in jokeSearchResponse.ResultsBySize)
+            {
+                var jokeStrings = item.Value.Select(j => j.Joke);
+                groupedJokes.Add(item.Key, jokeStrings);
+            }
+
+            var viewModel = new SearchViewModel();
+            viewModel.SearchTerm = searchTerm;
+            viewModel.GroupedJokes = groupedJokes;
 
             return View(viewModel);
         }
