@@ -45,11 +45,3 @@ The results are grouped into 3 categories:
 * Short: Less than 10 words.
 * Medium: 10 or more words but less than 20.
 * Long: 20 or more words.
-
-## Implementation
-
-### IJokeService
-
-### DadJokeService
-
-### POCOs
